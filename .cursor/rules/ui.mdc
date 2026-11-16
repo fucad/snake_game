@@ -1,0 +1,17 @@
+---
+description: Rules for editing UI screens and widgets
+globs: ["lib/ui/**"]
+alwaysApply: false
+---
+
+# UI Files — Cursor Rules
+
+- Always use `AppColors.*` — never `Color(0xFF...)`
+- Always use `AppTextStyles.*` — never `TextStyle(fontSize: ...)`
+- Always use `AppDimensions.*` — never magic numbers like `16.0`
+- Always use `AppAnimations.*` durations and curves
+- Cards use `AppColors.surface`, `AppDimensions.radiusLg`, `elevation: 0`
+- One primary CTA per screen (`AppColors.primary` background)
+- Screens receive data as constructor parameters — no game logic in screen files
+
+Full reference: `DESIGN_SYSTEM.md`

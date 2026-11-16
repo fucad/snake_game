@@ -1,0 +1,54 @@
+---
+description: Core project rules for snake_game — always active
+globs: ["lib/**", "test/**", "balance/**"]
+alwaysApply: true
+---
+
+# Snake Game — Cursor Rules
+
+## Architecture
+
+Three strict layers. Never cross the boundary upward.
+
+- `lib/balance/` — constants only, no imports, no logic
+- `lib/game/logic/`, `lib/game/bot/`, `lib/progression/` — pure Dart, NO Flutter/Flame imports
+- `lib/game/components/`, `lib/game/snake_game.dart` — Flame rendering only
+- `lib/ui/` — Flutter screens and widgets
+
+## Critical Rules
+
+1. Logic files (`lib/game/logic/`, `lib/game/bot/`, `lib/progression/`) must
+   never contain `import 'package:flame/...'` or `import 'package:flutter/...'`
+
+2. Game numbers (speeds, goals, XP, bot counts) belong in `lib/balance/`.
+   Never hardcode them in logic or UI files.
+
+3. Widget files must use design tokens — never raw values:
+   - Colors → `AppColors.*`
+   - Text styles → `AppTextStyles.*`
+   - Spacing → `AppDimensions.*`
+   - Animations → `AppAnimations.*`
+
+4. Every logic change needs a test in `test/logic/`.
+
+5. No ads, no analytics, no network calls, no multiplayer server code.
+
+## Commands
+
+```bash
+flutter test          # all tests
+dart analyze lib/     # static analysis
+flutter test test/logic/  # fast logic-only tests
+```
+
+## File Map
+
+| Goal | File |
+|---|---|
+| Tune a number | `lib/balance/*.dart` |
+| Fix movement | `lib/game/logic/movement_logic.dart` |
+| Fix collisions | `lib/game/logic/collision_logic.dart` |
+| Fix bot AI | `lib/game/bot/*.dart` |
+| Fix visuals | `lib/game/components/*.dart` |
+| Fix a screen | `lib/ui/screens/*.dart` |
+| Fix colors | `lib/ui/theme/app_colors.dart` |

@@ -1,0 +1,17 @@
+---
+description: Rules for editing balance configuration files
+globs: ["lib/balance/**"]
+alwaysApply: false
+---
+
+# Balance Files — Cursor Rules
+
+These files contain only plain Dart constants. When editing them:
+
+- Only change the **values**, not the structure
+- Do not add methods, conditionals, or imports
+- Every constant has a comment — update it if the meaning changes
+- After editing, run `flutter test` to verify nothing broke
+- Document the before/after values in your commit message
+
+See `GAME_BALANCE.md` for the rationale behind every value.

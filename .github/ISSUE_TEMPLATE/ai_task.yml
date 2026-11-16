@@ -1,0 +1,55 @@
+name: AI Task
+description: A well-scoped task for an AI coding assistant (Claude, Copilot, Cursor, Codex, etc.)
+labels: [ai-task]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template when you want an AI assistant to implement something.
+        The more precise the scope, the better the output.
+        See CLAUDE.md / AGENTS.md for architecture rules the AI must follow.
+
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Which layer does this touch?
+      options:
+        - "Layer 0 — Balance constants (lib/balance/)"
+        - "Layer 1 — Pure Dart logic (lib/game/logic/ or lib/game/bot/ or lib/progression/)"
+        - "Layer 2 — Flame rendering (lib/game/components/)"
+        - "Layer 3 — Flutter UI (lib/ui/screens/ or lib/ui/widgets/)"
+        - "Multiple layers (explain in description)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: task
+    attributes:
+      label: Task description
+      description: |
+        What exactly should the AI implement?
+        Include: file(s) to touch, inputs/outputs, acceptance criteria.
+      placeholder: |
+        File: lib/game/bot/hard_bot.dart
+        Change: Make the hard bot dodge wall edges proactively.
+        Acceptance: Hard bot survives at least 50% longer on round 10 without touching walls.
+    validations:
+      required: true
+
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: Rules the AI must not break.
+      value: |
+        - No Flutter/Flame imports in lib/game/logic/
+        - No raw colour/font/spacing values in widget files
+        - No new balance constants inside logic files
+        - dart analyze lib/ must return no errors after the change
+        - flutter test must pass
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Relevant context
+      description: Files to read, related issues, or design decisions.
